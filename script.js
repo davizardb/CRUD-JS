@@ -1,9 +1,36 @@
 var conte = 0;
 var conta = 0;
 var contc = 0;
+var num;
 
 function apagar(event) {
   event.target.parentElement.parentElement.remove();
+}
+
+
+function handler(event) {
+  const text = event.target.textContent;
+  const butao = document.querySelector("#butao");
+  if(text === 'Editar') {
+    butao.disabled = true;
+    return editar(event);
+  }
+  else {
+    butao.disabled = false;
+    return editor(event);
+  }
+}
+
+function editor(event) {
+  let valor = document.querySelector(`#${event.target.id}`).parentElement.parentElement;
+  let id = valor.childNodes;
+  let v1 = id[0].childNodes[0].value;
+  let v2 = id[1].childNodes[0].value;
+  let v3 = id[2].childNodes[0].value;
+  id[0].innerHTML = v1;
+  id[1].innerHTML = v2;
+  id[2].innerHTML = v3;
+  event.target.textContent = 'Editar';
 }
 
 function editar(event) {
@@ -17,26 +44,18 @@ function editar(event) {
   entrada3.value = id[2].textContent;
 
   if(event.target.textContent === 'Concluído') {
-    let t1 = id[0].value
-    let t2 = id[0].value
-    let t3 = id[0].value
-    // console.log(id[0].textContent);
-    id[0].innerHTML = t1;
-    id[1].innerHTML = t2;
-    id[2].innerHTML = t3;
-    event.target.textContent = 'Editar';
+    // event.target.onclick = editor(event);
   }
   
-  if(event.target.textContent === 'Editar') {
+  else {
     id[0].textContent = '';
     id[1].textContent = '';
     id[2].textContent = '';
     id[0].appendChild(entrada1);
     id[1].appendChild(entrada2);
-    event.target.textContent = 'Concluído';
     id[2].appendChild(entrada3);
+    event.target.textContent = 'Concluído';
   }
-  
 
 }
 
@@ -61,7 +80,7 @@ function inserir() {
 
   bt1.innerHTML = 'Editar';
   bt1.id = `edit${conte}`;
-  bt1.onclick = editar;
+  bt1.onclick = handler;
   
   bt2.innerHTML = 'Apagar';
   bt2.id = `apag${conta}`;
