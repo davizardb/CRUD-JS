@@ -3,26 +3,26 @@ var conta = 0;
 var contc = 0;
 var num;
 
-function apagar(event) {
-  event.target.parentElement.parentElement.remove();
+function apagar(e) {
+  e.target.parentElement.parentElement.remove();
 }
 
 
-function handler(event) {
-  const text = event.target.textContent;
+function handler(e) {
+  const text = e.target.textContent;
   const butao = document.querySelector("#butao");
   if(text === 'Editar') {
     butao.disabled = true;
-    return editar(event);
+    return editar(e);
   }
   else {
     butao.disabled = false;
-    return editor(event);
+    return editor(e);
   }
 }
 
-function editor(event) {
-  let valor = document.querySelector(`#${event.target.id}`).parentElement.parentElement;
+function editor(e) {
+  let valor = document.querySelector(`#${e.target.id}`).parentElement.parentElement;
   let id = valor.childNodes;
   let v1 = id[0].childNodes[0].value;
   let v2 = id[1].childNodes[0].value;
@@ -30,21 +30,21 @@ function editor(event) {
   id[0].innerHTML = v1;
   id[1].innerHTML = v2;
   id[2].innerHTML = v3;
-  event.target.textContent = 'Editar';
+  e.target.textContent = 'Editar';
 }
 
-function editar(event) {
+function editar(e) {
   let entrada1 = document.createElement("INPUT");
   let entrada2 = document.createElement("INPUT");
   let entrada3 = document.createElement("INPUT");
-  let valor = document.querySelector(`#${event.target.id}`).parentElement.parentElement;
+  let valor = document.querySelector(`#${e.target.id}`).parentElement.parentElement;
   let id = valor.childNodes;
   entrada1.value = id[0].textContent;
   entrada2.value = id[1].textContent;
   entrada3.value = id[2].textContent;
 
-  if(event.target.textContent === 'Concluído') {
-    // event.target.onclick = editor(event);
+  if(e.target.textContent === 'Concluído') {
+    // e.target.onclick = editor(e);
   }
   
   else {
@@ -54,7 +54,7 @@ function editar(event) {
     id[0].appendChild(entrada1);
     id[1].appendChild(entrada2);
     id[2].appendChild(entrada3);
-    event.target.textContent = 'Concluído';
+    e.target.textContent = 'Concluído';
   }
 
 }
